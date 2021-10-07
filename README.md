@@ -1,3 +1,8 @@
+# Présentation du groupe
+
+### PIGNON Nathan (SLUG: Nathan-Pignon)
+### MARTIN Maxime (SLUG: Xamimus)
+
 # TP_Nuxt
 
 ## Build Setup
