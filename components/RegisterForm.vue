@@ -1,16 +1,37 @@
 <template>
-  <div>
-    <v-text-field
-      v-model="name"
-      label="Nom d'utilisateur"
-      required
-    ></v-text-field>
+  <form
+  id="app"
+  @submit="CheckAdd"
+  action="/auth/register"
+  method="post"
+  >
 
-    <v-text-field v-model="email" label="E-mail" required></v-text-field>
+    <p v-if="errors.length">
+      <b>Please correct the following error(s):</b>
+      <ul>
+        <li v-for="(error, e) in errors" :key="e">{{ error }}</li>
+      </ul>
+    </p>
 
-    <v-btn color="success" @click="add"> Add user </v-btn>
-    <h3>{{ $store.state.users.users }}</h3>
-  </div>
+    <p>
+      <v-text-field
+        v-model="name"
+        label="Nom d'utilisateur"
+        required
+      ></v-text-field>
+    </p>
+
+    <p>
+      <v-text-field v-model="email" label="E-mail" required></v-text-field>
+    </p>
+        <p>
+      <v-text-field v-model="password" label="Mot de passe" type="password"></v-text-field>
+    </p>
+    <p>
+      <v-btn color="success" @click="CheckAdd"> Add user </v-btn>
+    </p>
+
+  </form>
 </template>
 
 <script>
@@ -20,10 +41,7 @@ export default {
   data: () => ({
     name: '',
     email: '',
-    users: [
-      {name: "Roger", mail: "roger@test.fr"},
-      {name: "Jacques", mail: "jacques@test.fr"}
-    ],
+    errors: [],
   }),
   mounted() {
     localStorage.setItem('users', JSON.stringify(this.users))
@@ -35,13 +53,27 @@ export default {
   },
   methods: {
     add() {
-      // console.log(this.name)
-      // console.log(this.$store)
       this.$store.dispatch(ACTIONS.ADD_USER_METHOD, {
         name: this.name,
         email: this.email,
       })
     },
+    checkAdd: function (e) {
+      if (this.name && this.email) {
+        return true;
+      }
+
+      this.errors = [];
+
+      if (!this.name) {
+        this.errors.push('Name required.');
+      }
+      if (!this.email) {
+        this.errors.push('Email required.');
+      }
+
+      e.preventDefault();
+    }
   },
 }
 </script>
