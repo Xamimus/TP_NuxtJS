@@ -1,15 +1,25 @@
 <template>
   <div class="home-container text-center">
     <h1>Accueil</h1>
+    <h2>{{ name }}</h2>
+    <div v-if="$store.state.auth.isLogged">
+      Coucou
+    </div>
+    <div v-else>
+      <register-form />
+    </div>
   </div>
 </template>
 
 <script>
-const fs = require("fs");
 
 export default {
-  created() {
-    /* fs.writeFileSync("users.json", JSON.stringify("Coucou")) */
+  data: () => ({
+    name: '',
+  }),
+  mounted() {
+    localStorage.setItem('OUI', true)
+    this.name = localStorage.getItem('OUI')
   }
 }
 </script>
