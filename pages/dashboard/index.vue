@@ -1,8 +1,9 @@
 <template>
     <div class="dashboard-container">
-        <h1>Dashboard de {{ $store.state.users.currentUser.name }}</h1>
+        <h1>Dashboard</h1>
+        <h2>{{ $store.state.users.currentUser.email }}</h2>
         <v-btn color="warning" @click="logOut">Déconnexion</v-btn>
-        <v-btn color="danger">Supprimer mon profil</v-btn>
+        <v-btn color="danger" @click="removeUser">Supprimer mon profil</v-btn>
     </div>
 </template>
 
@@ -23,7 +24,7 @@ export default {
         },
         removeUser() {
             this.$store.dispatch(ACTIONS.REMOVE_USER_METHOD, {
-                mail: $store.state.users.currentUser.mail
+                email: this.$store.state.users.currentUser.email
             })
             this.logOut()
         }

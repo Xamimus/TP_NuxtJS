@@ -10,22 +10,18 @@ export const ACTIONS = {
     isLogged: false,
     currentUser: {},
   })
-  
-  export const reloadUsers = () => {
-    localStorage.setItem('users', state.users)
-  }
 
   export const mutations = {
     ADD_USER: (state, data) => {
       state.users.push(data)
-      reloadUsers()
+      localStorage.setItem('users', JSON.stringify(state.users))
     },
     REMOVE_USER: (state, data) => {
-      state.users = state.users.filter(user => user.mail !== data.mail)
-      reloadUsers()
+      state.users = state.users.filter(user => user.email !== data.email)
+      localStorage.setItem('users', JSON.stringify(state.users))
     },
-    INIT_USERS: (state, data) => {
-      state.users = data
+    INIT_USERS: (state) => {
+      localStorage.setItem('users', JSON.stringify(state.users))
     },
     TOGGLE_LOGIN: (state, data) => {
       state.currentUser = data ? data : {}

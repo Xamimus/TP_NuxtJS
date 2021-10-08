@@ -37,20 +37,14 @@ export default {
     email: '',
     password: '',
     errors: [],
-    users: [],
   }),
   mounted() {
-    localStorage.setItem('users', JSON.stringify(this.users))
-
-    //COPIER CETTE LIGNE DANS LE LOGIN
-    this.$store.dispatch(ACTIONS.INIT_USERS, JSON.parse(localStorage.getItem('users')))
-    
-
+    this.$store.dispatch(ACTIONS.INIT_USERS, localStorage.getItem('users'))
   },
   methods: {
     register() {
       this.checkAdd()
-      if(this.errors.length === 0) {
+      if(!this.errors.length) {
         this.$store.dispatch(ACTIONS.ADD_USER_METHOD, {
           name: this.name,
           email: this.email,
@@ -63,10 +57,6 @@ export default {
       }
     },
     checkAdd() {
-      if (this.name && this.email) {
-        return true;
-      }
-
       this.errors = [];
 
       if (!this.name) {
