@@ -60,10 +60,6 @@ export default {
       }
     },
     checkAdd(e) {
-      console.log('oui')
-      if (this.name && this.email) {
-        return true;
-      }
 
       this.errors = [];
 
@@ -72,6 +68,10 @@ export default {
       }
       if (!this.email) {
         this.errors.push('Le champ "Email" est requis');
+      } else {
+        if (this.email.indexOf('@') == -1 || this.email.indexOf('.') == -1) {
+        this.errors.push('Le champ "Email" est incorrect');
+        }
       }
       if (!this.password) {
         this.errors.push('Le champ "Mot de passe" est requis');
