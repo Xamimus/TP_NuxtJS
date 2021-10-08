@@ -1,6 +1,5 @@
 export const ACTIONS = {
-    LOGIN_METHOD: 'auth/login',
-    REGISTER_METHOD: 'auth/register',
+    TOGGLE_LOGIN_METHOD: 'auth/login',
   }
   
   export const state = () => ({
@@ -8,16 +7,12 @@ export const ACTIONS = {
   })
   
   export const mutations = {
-    LOGIN: (state, data) => console.log(data),
-    REGISTER: (state, data) => console.log(data)
+    TOGGLE_LOGIN: (state) => state.isLogged = !state.isLogged,
   }
   
   export const actions = {
-    login({ commit }, data) {
+    toggleLogin({ commit }, data) {
       commit('LOGIN', data)
-    },
-    register({ commit }, data){
-      commit('REGISTER', data)
     },
   }
   

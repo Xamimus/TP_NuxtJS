@@ -9,6 +9,7 @@
     <v-text-field v-model="email" label="E-mail" required></v-text-field>
 
     <v-btn color="success" @click="add"> Add user </v-btn>
+    <h3>{{ $store.state.users.users }}</h3>
   </div>
 </template>
 
@@ -19,7 +20,19 @@ export default {
   data: () => ({
     name: '',
     email: '',
+    users: [
+      {name: "Roger", mail: "roger@test.fr"},
+      {name: "Jacques", mail: "jacques@test.fr"}
+    ],
   }),
+  mounted() {
+    localStorage.setItem('users', JSON.stringify(this.users))
+
+    //COPIER CETTE LIGNE DANS LE LOGIN
+    this.$store.dispatch(ACTIONS.INIT_USERS, JSON.parse(localStorage.getItem('users')))
+    
+
+  },
   methods: {
     add() {
       // console.log(this.name)
