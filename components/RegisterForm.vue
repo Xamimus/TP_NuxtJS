@@ -1,15 +1,9 @@
 <template>
-  <form
-  id="app"
-  @submit="CheckAdd"
-  action="/auth/register"
-  method="post"
-  >
-
-    <p v-if="errors.length">
-      <b>Please correct the following error(s):</b>
+  <div class="register-form-container">
+    <p v-if="errors.length > 0">
+      <b>Merci de corriger les erreurs suivantes :</b>
       <ul>
-        <li v-for="(error, e) in errors" :key="e">{{ error }}</li>
+        <li v-for="error in errors" :key="error">{{ error }}</li>
       </ul>
     </p>
 
@@ -28,10 +22,11 @@
       <v-text-field v-model="password" label="Mot de passe" type="password"></v-text-field>
     </p>
     <p>
-      <v-btn color="success" @click="CheckAdd"> Add user </v-btn>
+      <v-btn color="success" @click="add"> Add user </v-btn>
     </p>
 
-  </form>
+    <h4>{{ $store.state.users.users }}</h4>
+  </div>
 </template>
 
 <script>
@@ -41,7 +36,9 @@ export default {
   data: () => ({
     name: '',
     email: '',
+    password: '',
     errors: [],
+    users: [],
   }),
   mounted() {
     localStorage.setItem('users', JSON.stringify(this.users))
@@ -53,12 +50,17 @@ export default {
   },
   methods: {
     add() {
-      this.$store.dispatch(ACTIONS.ADD_USER_METHOD, {
-        name: this.name,
-        email: this.email,
-      })
+      this.checkAdd()
+      if(!this.errors) {
+        this.$store.dispatch(ACTIONS.ADD_USER_METHOD, {
+          name: this.name,
+          email: this.email,
+          password: this.password,
+        })
+      }
     },
-    checkAdd: function (e) {
+    checkAdd(e) {
+      console.log('oui')
       if (this.name && this.email) {
         return true;
       }
@@ -66,13 +68,14 @@ export default {
       this.errors = [];
 
       if (!this.name) {
-        this.errors.push('Name required.');
+        this.errors.push('Le champ "Nom" est requis.');
       }
       if (!this.email) {
-        this.errors.push('Email required.');
+        this.errors.push('Le champ "Email" est requis');
       }
-
-      e.preventDefault();
+      if (!this.password) {
+        this.errors.push('Le champ "Mot de passe" est requis');
+      }
     }
   },
 }
