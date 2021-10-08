@@ -13,3 +13,16 @@
     </v-col>
   </v-row>
 </template>
+
+<script>
+
+export default {
+  data: () => ({
+    name: '',
+  }),
+  mounted() {
+    localStorage.setItem('OUI', true)
+    this.name = localStorage.getItem('OUI')
+  }
+}
+</script>
