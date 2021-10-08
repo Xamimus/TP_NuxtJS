@@ -2,10 +2,13 @@ export const ACTIONS = {
     ADD_USER_METHOD: 'users/addUser',
     REMOVE_USER_METHOD: 'users/removeUser',
     INIT_USERS: 'users/initUsers',
+    TOGGLE_LOGIN_METHOD: 'users/toggleLogin',
   }
   
   export const state = () => ({
     users: [],
+    isLogged: false,
+    currentUser: {},
   })
   
   export const reloadUsers = () => {
@@ -23,7 +26,11 @@ export const ACTIONS = {
     },
     INIT_USERS: (state, data) => {
       state.users = data
-    }
+    },
+    TOGGLE_LOGIN: (state, data) => {
+      state.currentUser = data ? data : {}
+      state.isLogged = !state.isLogged
+    },
   }
   
   export const actions = {
@@ -35,6 +42,9 @@ export const ACTIONS = {
     },
     initUsers({ commit }, data){
       commit('INIT_USERS', data)
+    },
+    toggleLogin({ commit }, data) {
+      commit('TOGGLE_LOGIN', data)
     },
   }
   

@@ -1,4 +1,4 @@
-<template>
+/* <template>
   <v-app dark>
     <v-navigation-drawer
       v-model="drawer"
@@ -54,6 +54,8 @@
 <script>
 export default {
   data () {
+    let isLogged = this.$store.state.users.isLogged
+
     return {
       clipped: true,
       drawer: false,
@@ -69,25 +71,25 @@ export default {
           icon: 'mdi-login',
           title: 'Connexion',
           to: '/auth/login',
-          visible: true,
+          visible: !isLogged,
         },
         {
           icon: 'mdi-account-plus',
           title: 'Inscription',
           to: '/auth/register',
-          visible: true,
+          visible: !isLogged,
         },
         {
           icon: 'mdi-power',
           title: 'Déconnexion',
           to: '',
-          visible: false,
+          visible: isLogged,
         }, 
         {
           icon: 'mdi-delete-forever',
           title: 'Supprimer mon compte',
           to: '',
-          visible: false,
+          visible: isLogged,
         }
       ],
       miniVariant: false,
@@ -109,3 +111,4 @@ export default {
     }, */
 }
 </script>
+ */

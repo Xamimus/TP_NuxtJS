@@ -2,23 +2,24 @@
   <div>
     <v-text-field v-model="email" label="E-mail" required></v-text-field>
     <v-text-field v-model="password" label="Mot de passe" type="password"></v-text-field>
-    <v-btn color="success" @click="login"> Log user </v-btn>
+    <v-btn color="success" @click="login"> Connexion</v-btn>
+    <v-btn color="info" to="/auth/register">Inscription</v-btn>
   </div>
 </template>
 
 <script>
-import { ACTIONS } from '~/store/auth'
+import { ACTIONS } from '~/store/users'
 
 export default {
   data: () => ({
-    name: '',
     email: '',
+    password: '',
   }),
   methods: {
     login() {
       this.$store.dispatch(ACTIONS.LOGIN_METHOD, {
-        name: this.name,
         email: this.email,
+        password: this.password,
       })
     },
   },

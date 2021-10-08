@@ -4,3 +4,13 @@
         <login-form />
     </div>
 </template>
+
+<script>
+export default {
+    created() {
+        if(this.$store.state.users.isLogged){
+            this.$router.replace('/dashboard')
+        }
+    }
+}
+</script>

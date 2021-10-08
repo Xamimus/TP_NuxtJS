@@ -1,4 +1,4 @@
-export const ACTIONS = {
+export const AUTH_ACTIONS = {
     TOGGLE_LOGIN_METHOD: 'auth/login',
   }
   

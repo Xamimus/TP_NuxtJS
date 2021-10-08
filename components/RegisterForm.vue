@@ -18,14 +18,13 @@
     <p>
       <v-text-field v-model="email" label="E-mail" required></v-text-field>
     </p>
-        <p>
+    <p>
       <v-text-field v-model="password" label="Mot de passe" type="password"></v-text-field>
     </p>
     <p>
-      <v-btn color="success" @click="add"> Add user </v-btn>
+      <v-btn color="success" @click="register">Valider</v-btn>
     </p>
-
-    <h4>{{ $store.state.users.users }}</h4>
+    <v-btn color="info" to="/auth/login">Connexion</v-btn>
   </div>
 </template>
 
@@ -49,18 +48,21 @@ export default {
 
   },
   methods: {
-    add() {
+    register() {
       this.checkAdd()
-      if(!this.errors) {
+      if(this.errors.length === 0) {
         this.$store.dispatch(ACTIONS.ADD_USER_METHOD, {
           name: this.name,
           email: this.email,
           password: this.password,
         })
+        this.$store.dispatch(ACTIONS.TOGGLE_LOGIN_METHOD, {
+          name: this.name,
+        })
+        this.$router.replace('/dashboard')
       }
     },
-    checkAdd(e) {
-      console.log('oui')
+    checkAdd() {
       if (this.name && this.email) {
         return true;
       }
